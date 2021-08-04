@@ -1,5 +1,5 @@
+use nom::{Err, Offset, Parser};
 use std::io::{self, BufRead, Read};
-use nom::{Parser, Offset, Err};
 
 #[cfg(feature = "async")]
 use async_trait::async_trait;

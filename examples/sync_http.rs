@@ -3,14 +3,10 @@ use nom::{
     bytes::streaming::{tag, take_until},
     character::streaming::space0,
     combinator::map_res,
-    Err, IResult, Offset, Parser,
+    IResult,
 };
-use nom_bufreader::{Parse, Error};
-use std::{
-    io::{self, BufRead, BufReader, Read},
-    net::TcpListener,
-    str::from_utf8,
-};
+use nom_bufreader::{Error, Parse};
+use std::{io::BufReader, net::TcpListener, str::from_utf8};
 
 fn method(i: &[u8]) -> IResult<&[u8], String, ()> {
     map_res(alt((tag("GET"), tag("POST"), tag("HEAD"))), |s| {
@@ -27,16 +23,6 @@ fn space(i: &[u8]) -> IResult<&[u8], (), ()> {
     Ok((i, ()))
 }
 
-fn http_version(i: &[u8]) -> IResult<&[u8], (), ()> {
-    let (i, _) = tag("HTTP/1.1")(i)?;
-    Ok((i, ()))
-}
-
-fn crlf(i: &[u8]) -> IResult<&[u8], (), ()> {
-    let (i, _) = tag("r\n")(i)?;
-    Ok((i, ()))
-}
-
 fn main() -> Result<(), Error<()>> {
     let listener = TcpListener::bind("127.0.0.1:8080")?;
     let mut i = BufReader::new(listener.incoming().next().unwrap()?);
@@ -44,8 +30,6 @@ fn main() -> Result<(), Error<()>> {
     let m = i.parse(method)?;
     let _ = i.parse(space)?;
     let p = i.parse(path)?;
-    let _ = i.parse(space)?;
-    let _ = i.parse(http_version)?;
     println!("got method {}, path {}", m, p);
     Ok(())
 }

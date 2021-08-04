@@ -1,13 +1,10 @@
-use futures::{
-    io::{AsyncBufRead, AsyncBufReadExt, BufReader},
-    AsyncRead,
-};
+use futures::io::BufReader;
 use nom::{
     branch::alt,
     bytes::streaming::{tag, take_until},
     character::streaming::space0,
     combinator::map_res,
-    Err, IResult, Offset, Parser,
+    IResult,
 };
 use nom_bufreader::{AsyncParse, Error};
 use std::str::from_utf8;
@@ -24,16 +21,6 @@ fn path(i: &[u8]) -> IResult<&[u8], String, ()> {
 
 fn space(i: &[u8]) -> IResult<&[u8], (), ()> {
     let (i, _) = space0(i)?;
-    Ok((i, ()))
-}
-
-fn http_version(i: &[u8]) -> IResult<&[u8], (), ()> {
-    let (i, _) = tag("HTTP/1.1")(i)?;
-    Ok((i, ()))
-}
-
-fn crlf(i: &[u8]) -> IResult<&[u8], (), ()> {
-    let (i, _) = tag("r\n")(i)?;
     Ok((i, ()))
 }
 
