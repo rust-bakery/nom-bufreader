@@ -7,7 +7,7 @@ use futures::{
 use nom::{Err, Offset, Parser};
 
 #[async_trait]
-trait AsyncParse<O, E, P> {
+pub trait AsyncParse<O, E, P> {
     async fn parse(&mut self, p: P) -> Result<O, Error<E>>
     where
         for<'a> P: Parser<&'a [u8], O, E> + Send + 'async_trait;

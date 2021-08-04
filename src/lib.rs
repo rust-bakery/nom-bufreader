@@ -5,7 +5,7 @@ pub mod sync;
 use std::io;
 
 #[derive(Debug)]
-enum Error<E> {
+pub enum Error<E> {
     Error(E),
     Failure(E),
     Io(io::Error),

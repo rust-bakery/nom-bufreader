@@ -2,7 +2,7 @@ use super::Error;
 use nom::{Err, Offset, Parser};
 use std::io::{BufRead, BufReader, Read};
 
-trait Parse<O, E, P> {
+pub trait Parse<O, E, P> {
     fn parse(&mut self, p: P) -> Result<O, Error<E>>
     where
         for<'a> P: Parser<&'a [u8], O, E>;
