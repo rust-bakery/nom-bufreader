@@ -5,7 +5,7 @@ use nom::{
     combinator::map_res,
     Err, IResult, Offset, Parser,
 };
-use nom_bufreader::{sync::Parse, Error};
+use nom_bufreader::{Parse, Error};
 use std::{
     io::{self, BufRead, BufReader, Read},
     net::TcpListener,

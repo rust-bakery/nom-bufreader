@@ -9,7 +9,7 @@ use nom::{
     combinator::map_res,
     Err, IResult, Offset, Parser,
 };
-use nom_bufreader::{r#async::AsyncParse, Error};
+use nom_bufreader::{AsyncParse, Error};
 use std::str::from_utf8;
 
 fn method(i: &[u8]) -> IResult<&[u8], String, ()> {
