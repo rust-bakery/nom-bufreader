@@ -1,3 +1,21 @@
+//! This crate provides a `BufReader` alternative that can be used with
+//! [nom parsers](http://docs.rs/nom)
+//!
+//! # Example
+//!
+//! ```rust,ignore
+//! let listener = TcpListener::bind("127.0.0.1:8080")?;
+//! let mut i = BufReader::new(listener.incoming().next().unwrap()?);
+//!
+//! // method, space and path are all nom parsers
+//! let m = i.parse(method)?;
+//! let _ = i.parse(space)?;
+//! let p = i.parse(path)?;
+//! println!("got method {}, path {}", m, p);
+//! ```
+//!
+//! For synchronous io, use `bufreader::BufReader`, while for asynchronous
+//! IO, you should use `async_bufreader::BufReader`
 use nom::{Err, Offset, Parser};
 use std::io::{self, BufRead, Read};
 
