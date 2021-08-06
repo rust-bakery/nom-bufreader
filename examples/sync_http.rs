@@ -6,7 +6,8 @@ use nom::{
     IResult,
 };
 use nom_bufreader::{Error, Parse};
-use std::{io::BufReader, net::TcpListener, str::from_utf8};
+use nom_bufreader::bufreader::BufReader;
+use std::{net::TcpListener, str::from_utf8};
 
 fn method(i: &[u8]) -> IResult<&[u8], String, ()> {
     map_res(alt((tag("GET"), tag("POST"), tag("HEAD"))), |s| {

@@ -1,4 +1,3 @@
-use futures::io::BufReader;
 use nom::{
     branch::alt,
     bytes::streaming::{tag, take_until},
@@ -7,6 +6,7 @@ use nom::{
     IResult,
 };
 use nom_bufreader::{AsyncParse, Error};
+use nom_bufreader::async_bufreader::BufReader;
 use std::str::from_utf8;
 
 fn method(i: &[u8]) -> IResult<&[u8], String, ()> {
