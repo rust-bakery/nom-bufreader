@@ -284,4 +284,3 @@ impl<R: AsyncRead + AsyncSeek> AsyncSeek for BufReader<R> {
         Poll::Ready(Ok(result))
     }
 }
-

@@ -9,9 +9,9 @@ use futures::{
     AsyncRead,
 };
 
-pub mod bufreader;
 #[cfg(feature = "async")]
 pub mod async_bufreader;
+pub mod bufreader;
 
 #[derive(Debug)]
 pub enum Error<E> {
@@ -161,7 +161,9 @@ impl<R: AsyncRead + Unpin + Send, O: Send, E, P> AsyncParse<O, E, P> for BufRead
 
 #[cfg(feature = "async")]
 #[async_trait]
-impl<R: AsyncRead + Unpin + Send, O: Send, E, P> AsyncParse<O, E, P> for async_bufreader::BufReader<R> {
+impl<R: AsyncRead + Unpin + Send, O: Send, E, P> AsyncParse<O, E, P>
+    for async_bufreader::BufReader<R>
+{
     async fn parse(&mut self, mut p: P) -> Result<O, Error<E>>
     where
         for<'a> P: Parser<&'a [u8], O, E> + Send + 'async_trait,

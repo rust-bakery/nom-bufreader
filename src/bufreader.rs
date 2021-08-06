@@ -4,12 +4,9 @@
 
 use std::cmp;
 use std::fmt;
-use std::io::{
-    self, BufRead, IoSliceMut, Read, Seek, SeekFrom,
-    Error, ErrorKind, Result,
-};
+use std::io::{self, BufRead, Error, ErrorKind, IoSliceMut, Read, Result, Seek, SeekFrom};
 
-const DEFAULT_BUF_SIZE: usize = 8 * 1024;
+pub(crate) const DEFAULT_BUF_SIZE: usize = 8 * 1024;
 
 fn default_read_exact<R: Read + ?Sized>(this: &mut R, mut buf: &mut [u8]) -> Result<()> {
     while !buf.is_empty() {
@@ -24,7 +21,10 @@ fn default_read_exact<R: Read + ?Sized>(this: &mut R, mut buf: &mut [u8]) -> Res
         }
     }
     if !buf.is_empty() {
-        Err(Error::new(ErrorKind::UnexpectedEof, "failed to fill whole buffer"))
+        Err(Error::new(
+            ErrorKind::UnexpectedEof,
+            "failed to fill whole buffer",
+        ))
     } else {
         Ok(())
     }
@@ -119,7 +119,12 @@ impl<R: Read> BufReader<R> {
     pub fn with_capacity(capacity: usize, inner: R) -> BufReader<R> {
         let mut buf = Vec::with_capacity(capacity);
         buf.extend(std::iter::repeat(0).take(capacity));
-        BufReader { inner, buf, pos: 0, cap: 0 }
+        BufReader {
+            inner,
+            buf,
+            pos: 0,
+            cap: 0,
+        }
     }
 }
 
@@ -334,7 +339,10 @@ impl<R: Read> BufRead for BufReader<R> {
     fn fill_buf(&mut self) -> io::Result<&[u8]> {
         if self.cap == self.buf.len() {
             if self.pos == 0 {
-                return Err(io::Error::new(io::ErrorKind::Interrupted, "buffer completely filled"));
+                return Err(io::Error::new(
+                    io::ErrorKind::Interrupted,
+                    "buffer completely filled",
+                ));
             } else {
                 self.reset_buffer_position();
             }
@@ -357,7 +365,10 @@ where
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
         fmt.debug_struct("BufReader")
             .field("reader", &self.inner)
-            .field("buffer", &format_args!("{}/{}", self.cap - self.pos, self.buf.len()))
+            .field(
+                "buffer",
+                &format_args!("{}/{}", self.cap - self.pos, self.buf.len()),
+            )
             .finish()
     }
 }
@@ -454,4 +465,3 @@ impl<R: Seek> Seek for BufReader<R> {
         })
     }
 }
-

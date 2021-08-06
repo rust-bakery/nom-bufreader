@@ -5,8 +5,8 @@ use nom::{
     combinator::map_res,
     IResult,
 };
-use nom_bufreader::{AsyncParse, Error};
 use nom_bufreader::async_bufreader::BufReader;
+use nom_bufreader::{AsyncParse, Error};
 use std::str::from_utf8;
 
 fn method(i: &[u8]) -> IResult<&[u8], String, ()> {

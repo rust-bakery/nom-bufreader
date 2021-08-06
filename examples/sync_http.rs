@@ -5,8 +5,8 @@ use nom::{
     combinator::map_res,
     IResult,
 };
-use nom_bufreader::{Error, Parse};
 use nom_bufreader::bufreader::BufReader;
+use nom_bufreader::{Error, Parse};
 use std::{net::TcpListener, str::from_utf8};
 
 fn method(i: &[u8]) -> IResult<&[u8], String, ()> {
