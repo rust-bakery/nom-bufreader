@@ -48,8 +48,7 @@ impl<R: AsyncRead> BufReader<R> {
 
     /// Creates a new `BufReader` with the specified buffer capacity.
     pub fn with_capacity(capacity: usize, inner: R) -> Self {
-        let mut buffer = Vec::with_capacity(capacity);
-        buffer.extend(std::iter::repeat(0).take(capacity));
+        let buffer = vec![0; capacity];
         Self {
             inner,
             buffer,

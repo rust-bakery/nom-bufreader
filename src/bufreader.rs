@@ -117,8 +117,7 @@ impl<R: Read> BufReader<R> {
     /// }
     /// ```
     pub fn with_capacity(capacity: usize, inner: R) -> BufReader<R> {
-        let mut buf = Vec::with_capacity(capacity);
-        buf.extend(std::iter::repeat(0).take(capacity));
+        let buf = vec![0; capacity];
         BufReader {
             inner,
             buf,
