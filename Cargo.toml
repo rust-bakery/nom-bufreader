@@ -9,7 +9,7 @@ keywords = ["parser", "parser-combinators", "parsing", "streaming", "async"]
 categories = ["parsing"]
 
 [dependencies]
-nom = "6.2.1"
+nom = "7.0.0"
 async-trait = { version = "0.1.51", optional = true }
 futures = { version = "0.3.16", optional = true }
 pin-project-lite = { version = "0.2.7", optional = true }
