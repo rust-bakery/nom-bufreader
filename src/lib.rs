@@ -10,7 +10,7 @@
 //!
 //! ## sync
 //!
-//! ```rust,no_run
+//! ```rust,ignore
 //! use nom_bufreader::bufreader::BufReader;
 //! use nom_bufreader::{Error, Parse};
 //! use std::{net::TcpListener, str::from_utf8};
@@ -32,7 +32,7 @@
 //!
 //! #### tokio
 //!
-//! ```rust,no_run
+//! ```rust,ignore
 //! use nom_bufreader::async_bufreader::BufReader;
 //! use nom_bufreader::{AsyncParse, Error};
 //! use std::str::from_utf8;
@@ -54,7 +54,7 @@
 //!
 //! #### async-std
 //!
-//! ```rust,no_run
+//! ```rust,ignore
 //! use nom_bufreader::async_bufreader::BufReader;
 //! use nom_bufreader::{AsyncParse, Error};
 //! use std::str::from_utf8;
