@@ -7,6 +7,7 @@ description = "BufReader adapter for nom parsers"
 license = "MIT"
 keywords = ["parser", "parser-combinators", "parsing", "streaming", "async"]
 categories = ["parsing"]
+repository = "https://github.com/rust-bakery/nom-bufreader"
 
 [dependencies]
 nom = "7.0.0"
