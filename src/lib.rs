@@ -78,10 +78,9 @@ use std::io::{self, BufRead, Read};
 #[cfg(feature = "async")]
 use async_trait::async_trait;
 #[cfg(feature = "async")]
-use futures::{
-    io::{AsyncBufReadExt, BufReader},
-    AsyncRead,
-};
+use futures_io::AsyncRead;
+#[cfg(feature = "async")]
+use futures_util::io::{AsyncBufReadExt, BufReader};
 
 #[cfg(feature = "async")]
 pub mod async_bufreader;
