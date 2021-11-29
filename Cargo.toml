@@ -14,7 +14,8 @@ documentation = "https://docs.rs/nom-bufreader"
 [dependencies]
 nom = "7.0.0"
 async-trait = { version = "0.1.51", optional = true }
-futures = { version = "0.3.16", optional = true }
+futures-io = { version = "0.3.16", default-features = false, optional = true }
+futures-util = { version = "0.3.16", default-features = false, features = ["io"], optional = true }
 pin-project-lite = { version = "0.2.7", optional = true }
 
 [dev-dependencies]
@@ -24,4 +25,4 @@ tokio-util = { version = "0.6.7", features = ["compat"] }
 
 [features]
 default = ["async"]
-async = ["futures", "async-trait", "pin-project-lite"]
+async = ["futures-io", "futures-util", "async-trait", "pin-project-lite"]

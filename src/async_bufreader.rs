@@ -1,10 +1,10 @@
 use super::bufreader::DEFAULT_BUF_SIZE;
-use futures::io::{AsyncBufRead, AsyncRead, AsyncSeek, AsyncWrite, IoSliceMut, SeekFrom};
-use futures::ready;
-use futures::task::{Context, Poll};
+use futures_io::{AsyncBufRead, AsyncRead, AsyncSeek, AsyncWrite, IoSliceMut, SeekFrom};
+use futures_util::ready;
 use pin_project_lite::pin_project;
 use std::io::{self, Read};
 use std::pin::Pin;
+use std::task::{Context, Poll};
 use std::{cmp, fmt};
 
 pin_project! {
