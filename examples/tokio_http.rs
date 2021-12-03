@@ -1,3 +1,4 @@
+use futures_util::io::BufReader as IoBufReader;
 use nom::{
     branch::alt,
     bytes::streaming::{tag, take_until},
@@ -28,7 +29,7 @@ fn space(i: &[u8]) -> IResult<&[u8], (), ()> {
 #[tokio::main]
 async fn main() -> Result<(), Error<()>> {
     let listener = tokio::net::TcpListener::bind("127.0.0.1:8080").await?;
-    let mut i = BufReader::new(listener.accept().await?.0.compat());
+    let mut i = BufReader::new(IoBufReader::new(listener.accept().await?.0.compat()));
 
     let m = i.parse(method).await?;
     let _ = i.parse(space).await?;
